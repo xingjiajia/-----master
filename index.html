@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en" ng-app="str">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>提醒事项</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body ng-controller="mainCtrl">
+<div class="bodyer">
+  <div class="bodyer_left">
+    <div class="iCloud">
+      <span class="iC_left">
+        <span class="IC_span"></span>
+        <div class="iC_icloud">提醒事项</div>
+      </span>
+      <span ng-click="addlist()" class="iC_right">+</span>
+    </div>
+    <ul class="title_list">
+      <li class="title-link">
+        <div class="title-photo"></div>
+        <span class="title-title1">已计划</span>
+      </li>
+      <li class="title-link" ng-repeat="v in list">
+        <div ng-click="change($index)" class="title-color" ng-class="{'{{v.color}}':v.name===currentlist.name}">
+          <span class="{{v.color}}"></span>
+        </div>
+        <input type="text" ng-change="saveDate" class="title-title" ng-model="v.name" value="{{v.name}}">
+      </li>
+    </ul>
+  </div>
+  <div class="bodyer_right {{currentlist.color}}">
+    <div class="br-search"></div>
+    <div class="by-up">
+      <div class="by-title"><span>{{currentlist.name}}</span></div>
+      <div class="by-select">
+        <span ng-click="togglee=!togglee">选项</span>
+        <div class="selected" ng-show="togglee" ng-init="togglee=false">
+          <div class="selected-warpping">
+            <input type="text" ng-change=saveDate() ng-model="currentlist.name" class="sw-input {{currentlist.color}}" value="currentlist.name">
+            <h3>列表颜色</h3>
+            <div class="sw-color">
+              <div class="sw-c-1 sw-c" ng-class="{'{{n}}':n===currentlist.color}" ng-repeat="n in colors">
+                <div class="sw-c-c {{n}}"  ng-click=changed(n)></div>
+              </div>
+            </div>
+            <div class="handal">
+              <div class="handal-del {{currentlist.color}} {{currentlist.id}}" ng-click="changes(currentlist.id)">删除</div>
+              <div class="handal-finished" ng-click="togglee=!togglee">完成</div>
+              <div class="handal-span"></div>
+              <div class="handal-quxiao" ng-click="togglee=!togglee">取消</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="by-finished">
+      <div class="c-down"></div>
+      <span class="by-f-finished">已完成 :<span class="by-ff-number">{{finished}}</span>项</span>
+      <span class="dy-ff-delete" ng-click="delete()">清除已完成事项</span>
+    </div>
+    <div class="finished-time"><span>2016年6月4日 星期六</span></div>
+    <div class="finished-things things valign-wrapper" ng-show="k.theme"  ng-repeat="k in currentlist.shixiang">
+      <div class="finished-sekuang valign">
+        <div class="skcolor" ng-click="k.theme=!k.theme">
+          <span></span>
+        </div>
+      </div>
+      <div class="finished-message valign">
+        <span>{{k.name}}</span>
+      </div>
+    </div>
+    <div class="by-finished">
+      <div class="c-down"></div>
+      <span class="by-f-finished">未完成 {{nofinished}}: 项<span
+    </div>
+    <div class="no-finished-thing things valign-wrapper {{currentlist.color}}" ng-show="!k.theme"  ng-repeat="k in currentlist.shixiang">
+      <div class="finished-sekuang {{currentlist.color}}">
+        <div class="skcolor valign" ng-click="k.theme=!k.theme">
+          <span></span>
+        </div>
+      </div>
+      <div class="finished-message valign">
+        <span>{{k.name}}</span>
+      </div>
+    </div>
+    <input type="text" class="add-thing" ng-click="addthing()" value="新项目...">
+  </div>
+</div>
+<script src="js/angular.js"></script>
+<script src="js/angular-animate.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
